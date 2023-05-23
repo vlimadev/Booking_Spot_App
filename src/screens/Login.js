@@ -17,20 +17,31 @@ import Logo from "../assets/login/Logo.png";
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [techs, setTechs] = useState("");
 
-  useEffect(() => {
-    async function fetchTechs() {
-      await AsyncStorage.getItem("techs", techs).then((tech) => {
-        if (tech) {
-          navigation.navigate("List");
-        }
-      });
-    }
-    fetchTechs();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchTechs() {
+  //     navigation.navigate("List");
+  //     await AsyncStorage.getItem("email").then((user) => {
+  //       if (user) {
+  //         navigation.navigate("List");
+  //       }
+  //     });
+  //   }
+  //   fetchTechs();
+  // }, []);
 
   async function handleSubmit() {
+    // const response = await api.post("/Login", {
+    //   email,
+    //   password,
+    // });
+
+    // const { _id } = response.data;
+    // console.log(_id);
+    // await AsyncStorage.setItem("email", _id);
+    // await AsyncStorage.setItem("password", password);
     await AsyncStorage.setItem("techs", techs);
 
     navigation.navigate("List");
@@ -54,9 +65,20 @@ export default function Login({ navigation }) {
           autoCapitalize="none"
           autoCorrect={false}
           value={email}
-          onChange={setEmail}
+          onChangeText={setEmail}
         />
 
+        <Text style={styles.label}>SENHA</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Senha"
+          placeholderTextColor="#999"
+          autoCapitalize="none"
+          secureTextEntry={true}
+          autoCorrect={false}
+          value={password}
+          onChangeText={setPassword}
+        />
         <Text style={styles.label}>TECNOLOGIAS</Text>
         <TextInput
           style={styles.input}
